@@ -1,0 +1,111 @@
+body {
+    background-color: #ffe4fb; /* Fondo Principal */
+}
+
+#game-container {
+    background-color: #fff2fd; /* Fondo del Contenedor */
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-warning,
+.btn-info,
+.btn-success,
+.btn-danger {
+    background-color: #ff62df; /* Botones generales */
+    border: none;
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-warning:hover,
+.btn-info:hover,
+.btn-success:hover,
+.btn-danger:hover {
+    background-color: #ff28db; /* Hover */
+    transform: scale(1.05); /* Aumentar ligeramente el tamaño al pasar el ratón */
+}
+
+#pet-buttons .btn-secondary {
+    background-color: #c902aa; /* Botones de regreso y cerrar menú */
+    border: none;
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+#pet-buttons .btn-secondary:hover {
+    background-color: #a40489; /* Hover */
+    transform: scale(1.05); /* Aumentar ligeramente el tamaño al pasar el ratón */
+}
+
+.progress-bar {
+    background-color: #ff28db; /* Progreso */
+    transition: width 0.3s ease; /* Transición suave para el ancho */
+}
+
+.progress {
+    background-color: #ffc8f7; /* Fondo de la barra */
+    border: 1px solid #df07c2; /* Borde de la barra */
+}
+
+.inventory-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border-bottom: 1px solid #df07c2;
+}
+
+.inventory-item .btn {
+    margin-left: 5px;
+}
+
+#messages-container {
+    background-color: #ffc8f7; /* Fondo de los mensajes */
+    border-radius: 10px;
+    padding: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#messages {
+    padding: 10px;
+    background-color: #fff2fd; /* Fondo de los mensajes individuales */
+    border-radius: 5px;
+    border: 1px solid #df07c2; /* Borde de los mensajes individuales */
+    animation: fadeIn 0.5s ease; /* Animación de aparición */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#mission-history-items {
+    background-color: #fff2fd;
+    border: 1px solid #df07c2;
+    border-radius: 5px;
+    padding: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.modal-content {
+    background-color: #fff2fd; /* Fondo de la ventana emergente */
+}
+
+.modal-header, .modal-footer {
+    background-color: #ffc8f7; /* Fondo del encabezado y pie de la ventana emergente */
+}
+
+.pet-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

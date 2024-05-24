@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GhostPetz</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <div class="container" id="game-container">
+        <h1 class="text-center my-4">GhostPetz: El Reino de las Almas</h1>
+        <div class="row mb-4">
+            <div class="col-md-6 text-center">
+                <img id="main-image" src="assets/img/principal.webp" class="img-fluid" alt="GhostPetz Principal" style="height: 300px;width: 300px;">
+            </div>
+            <div class="col-md-6">
+                <div id="messages-container" class="alert alert-info mt-4">
+                    <h5 class="text-center"><i class="fas fa-envelope"></i> Mensajes</h5>
+                    <div id="messages"></div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mb-4">
+            <button class="btn btn-info mx-2" onclick="player.saveProgress()"><i class="fas fa-save"></i> Guardar Progreso</button>
+            <button class="btn btn-info mx-2" onclick="player.loadProgress()"><i class="fas fa-upload"></i> Cargar Progreso</button>
+        </div>
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header text-center" id="headingSelection">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSelection" aria-expanded="true" aria-controls="collapseSelection">
+                            <i class="fas fa-paw"></i> Elige tus GhostPetz
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSelection" class="collapse show" aria-labelledby="headingSelection" data-parent="#accordion">
+                    <div class="card-body text-center">
+                        <button class="btn btn-primary mx-2 mb-2" onclick="selectPet('fantasma')"><i class="fas fa-ghost"></i> Fantasma</button>
+                        <button class="btn btn-primary mx-2 mb-2" onclick="selectPet('espectro')"><i class="fas fa-ghost"></i> Espectro</button>
+                        <button class="btn btn-primary mx-2 mb-2" onclick="selectPet('wraith')"><i class="fas fa-ghost"></i> Wraith</button>
+                        <button class="btn btn-primary mx-2 mb-2" onclick="selectPet('poltergeist')"><i class="fas fa-ghost"></i> Poltergeist</button>
+                        <button class="btn btn-primary mx-2 mb-2" onclick="selectPet('banshee')"><i class="fas fa-ghost"></i> Banshee</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="pet-status-card" style="display:none;">
+                <div class="card-header text-center" id="headingStatus">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseStatus" aria-expanded="false" aria-controls="collapseStatus">
+                            <i class="fas fa-info-circle"></i> Estado de tu GhostPet
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseStatus" class="collapse" aria-labelledby="headingStatus" data-parent="#accordion">
+                    <div class="card-body text-center">
+                        <img id="pet-image" src="" class="img-fluid mb-3" alt="GhostPet Image" width="300px" height="">
+                        <div class="row">
+                            <div class="col-6">
+                                <p><i class="fas fa-paw"></i> <span id="pet-type"></span></p>
+                                <p><i class="fas fa-level-up-alt"></i> <span id="pet-level"></span></p>
+                                <p><i class="fas fa-birthday-cake"></i> <span id="pet-age"></span></p>
+                                <p><i class="fas fa-disease"></i> <span id="pet-illness"></span></p>
+                            </div>
+                            <div class="col-6">
+                                <p><i class="fas fa-heart"></i> <span id="pet-health"></span></p>
+                                <p><i class="fas fa-bolt"></i> <span id="pet-energy"></span></p>
+                                <p><i class="fas fa-smile"></i> <span id="pet-happiness"></span></p>
+                                <p><i class="fas fa-book"></i> <span id="pet-emotions"></span></p>
+                            </div>
+                        </div>
+                        <div class="progress mb-3">
+                            <div id="progress-health" class="progress-bar" role="progressbar" style="width: 100%;"></div>
+                        </div>
+                        <div class="progress mb-3">
+                            <div id="progress-energy" class="progress-bar" role="progressbar" style="width: 100%;"></div>
+                        </div>
+                        <div class="progress mb-3">
+                            <div id="progress-happiness" class="progress-bar" role="progressbar" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="activities-card" style="display:none;">
+                <div class="card-header text-center" id="headingActivities">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseActivities" aria-expanded="false" aria-controls="collapseActivities">
+                            <i class="fas fa-running"></i> Actividades
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseActivities" class="collapse" aria-labelledby="headingActivities" data-parent="#accordion">
+                    <div class="card-body text-center">
+                        <button class="btn btn-secondary mx-2 mb-2" onclick="performActivity('alimentar')"><i class="fas fa-utensils"></i> Alimentar</button>
+                        <button class="btn btn-secondary mx-2 mb-2" onclick="performActivity('estudiar')"><i class="fas fa-book"></i> Estudiar</button>
+                        <button class="btn btn-secondary mx-2 mb-2" onclick="performActivity('trabajar')"><i class="fas fa-briefcase"></i> Trabajar</button>
+                        <button class="btn btn-secondary mx-2 mb-2" onclick="performActivity('ejercicio')"><i class="fas fa-dumbbell"></i> Ejercicio</button>
+                        <button class="btn btn-secondary mx-2 mb-2" onclick="performActivity('meditar')"><i class="fas fa-spa"></i> Meditar</button>
+                        <button class="btn btn-secondary mx-2 mb-2" onclick="performActivity('socializar')"><i class="fas fa-users"></i> Socializar</button>
+                        <button class="btn btn-secondary mx-2 mb-2" onclick="performActivity('entrenamiento')"><i class="fas fa-bolt"></i> Entrenamiento</button>
+                        <button class="btn btn-secondary mx-2 mb-2" onclick="performActivity('baño')"><i class="fas fa-bath"></i> Baño</button>
+                        <button class="btn btn-secondary mx-2 mb-2" onclick="performActivity('descansar')"><i class="fas fa-bed"></i> Descansar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="missions-card" style="display:none;">
+                <div class="card-header text-center" id="headingMissions">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseMissions" aria-expanded="false" aria-controls="collapseMissions">
+                            <i class="fas fa-tasks"></i> Misiones
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseMissions" class="collapse" aria-labelledby="headingMissions" data-parent="#accordion">
+                    <div class="card-body text-center">
+                        <button class="btn btn-warning mx-2 mb-2" onclick="startMission('vencerCriaturas')"><i class="fas fa-fist-raised"></i> Vencer Criaturas Malignas</button>
+                        <button class="btn btn-warning mx-2 mb-2" onclick="startMission('resolverPuzles')"><i class="fas fa-puzzle-piece"></i> Resolver Puzles</button>
+                        <button class="btn btn-warning mx-2 mb-2" onclick="startMission('desafiosConocimiento')"><i class="fas fa-brain"></i> Desafíos de Conocimiento</button>
+                        <button class="btn btn-warning mx-2 mb-2" onclick="startMission('busquedaTesoros')"><i class="fas fa-search"></i> Búsqueda de Tesoros</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="inventory-card" style="display:none;">
+                <div class="card-header text-center" id="headingInventory">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseInventory" aria-expanded="false" aria-controls="collapseInventory">
+                            <i class="fas fa-box"></i> Inventario
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseInventory" class="collapse" aria-labelledby="headingInventory" data-parent="#accordion">
+                    <div class="card-body text-center">
+                        <div id="inventory-items">No tienes objetos.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="coins-card" style="display:none;">
+                <div class="card-header text-center" id="headingCoins">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseCoins" aria-expanded="false" aria-controls="collapseCoins">
+                            <i class="fas fa-coins"></i> Monedero
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseCoins" class="collapse" aria-labelledby="headingCoins" data-parent="#accordion">
+                    <div class="card-body text-center">
+                        <p id="coins"><i class="fas fa-coins"></i> Monedas: 0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="explore-card" style="display:none;">
+                <div class="card-header text-center" id="headingExplore">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseExplore" aria-expanded="false" aria-controls="collapseExplore">
+                            <i class="fas fa-map"></i> Explorar
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseExplore" class="collapse" aria-labelledby="headingExplore" data-parent="#accordion">
+                    <div class="card-body text-center">
+                        <button class="btn btn-info mx-2 mb-2" onclick="exploreArea('bosque')"><i class="fas fa-tree"></i> Bosque Fantasma</button>
+                        <button class="btn btn-info mx-2 mb-2" onclick="exploreArea('lago')"><i class="fas fa-water"></i> Lago Espectral</button>
+                        <button class="btn btn-info mx-2 mb-2" onclick="exploreArea('ciudad')"><i class="fas fa-city"></i> Ciudad de Almas</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="switch-pet-card" style="display:none;">
+                <div class="card-header text-center" id="headingSwitchPet">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSwitchPet" aria-expanded="false" aria-controls="collapseSwitchPet">
+                            <i class="fas fa-exchange-alt"></i> Cambiar Mascota
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSwitchPet" class="collapse" aria-labelledby="headingSwitchPet" data-parent="#accordion">
+                    <div class="card-body text-center" id="pet-buttons">
+                        <!-- Botones para cambiar entre mascotas aparecerán aquí -->
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="buy-pet-card" style="display:none;">
+                <div class="card-header text-center" id="headingBuyPet">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseBuyPet" aria-expanded="false" aria-controls="collapseBuyPet">
+                            <i class="fas fa-shopping-cart"></i> Comprar Nuevos GhostPetz
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseBuyPet" class="collapse" aria-labelledby="headingBuyPet" data-parent="#accordion">
+                    <div class="card-body text-center">
+                        <button class="btn btn-success mx-2 mb-2" onclick="buyPet('fantasma')"><i class="fas fa-ghost"></i> Comprar Fantasma - 100 Monedas</button>
+                        <button class="btn btn-success mx-2 mb-2" onclick="buyPet('espectro')"><i class="fas fa-ghost"></i> Comprar Espectro - 200 Monedas</button>
+                        <button class="btn btn-success mx-2 mb-2" onclick="buyPet('wraith')"><i class="fas fa-ghost"></i> Comprar Wraith - 300 Monedas</button>
+                        <button class="btn btn-success mx-2 mb-2" onclick="buyPet('poltergeist')"><i class="fas fa-ghost"></i> Comprar Poltergeist - 400 Monedas</button>
+                        <button class="btn btn-success mx-2 mb-2" onclick="buyPet('banshee')"><i class="fas fa-ghost"></i> Comprar Banshee - 500 Monedas</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="missions-history-card" style="display:none;">
+                <div class="card-header text-center" id="headingMissionsHistory">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseMissionsHistory" aria-expanded="false" aria-controls="collapseMissionsHistory">
+                            <i class="fas fa-history"></i> Historial de Misiones
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseMissionsHistory" class="collapse" aria-labelledby="headingMissionsHistory" data-parent="#accordion">
+                    <div class="card-body text-center">
+                        <div id="mission-history-items">No hay misiones completadas.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="options-card" style="display:none;">
+                <div class="card-header text-center" id="headingOptions">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOptions" aria-expanded="false" aria-controls="collapseOptions">
+                            <i class="fas fa-cogs"></i> Opciones GhostPet
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOptions" class="collapse" aria-labelledby="headingOptions" data-parent="#accordion">
+                    <div class="card-body text-center">
+                        <button class="btn btn-danger mx-2 mb-2" onclick="resetGame()"><i class="fas fa-redo-alt"></i> Reiniciar Juego</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Minijuegos -->
+    <div class="modal fade" id="minigameModal" tabindex="-1" role="dialog" aria-labelledby="minigameModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="minigameModalLabel">Minijuego</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Aquí se mostrará el minijuego.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="completeMinigame()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="src/Player.js"></script>
+    <script src="src/GhostPet.js"></script>
+    <script src="src/utils.js"></script>
+    <script src="src/main.js"></script>
+</body>
+</html>
