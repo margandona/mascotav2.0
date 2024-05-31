@@ -184,19 +184,16 @@ class GhostPet {
         player.saveProgress();
     }
 
-    // Aumenta la edad de la mascota a intervalos regulares
-    increaseAge() {
-        setInterval(() => {
-            if (this.level % 5 === 0 && this.level <= 20) {
-                this.age++;
-            } else if (this.level > 20 && this.level % 3 === 0) {
-                this.age++;
-            }
-            player.showMsg(`¡Tu GhostPet ha cumplido ${this.age} años!`, 'info');
-            this.updateStats();
-            player.saveProgress();
-        }, 300000); // Cada 5 minutos
-    }
+    // Aumenta la edad de la mascota cada 5 minutos
+increaseAge() {
+    setInterval(() => {
+        this.age++;
+        player.showMsg(`¡Tu GhostPet ha cumplido ${this.age} años!`, 'info');
+        this.updateStats();
+        player.saveProgress();
+    }, 300000); // Cada 5 minutos
+}
+
 
     // Serializa los datos de la mascota
     serialize() {
