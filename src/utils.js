@@ -1,21 +1,12 @@
 // utils.js
 
 function selectPet(type) {
-    const ghostPet = new GhostPet(type);
+    const ghostPet = new GhostPet(type, prompt('Ingresa el nombre de tu mascota'), prompt('Ingresa el color de tu mascota'));
     player.addGhostPet(ghostPet);
     player.switchPet(player.ghostPetz.length - 1);
     $('#main-image').attr('src', ghostPet.getImagePath());
     $('#pet-selection').hide();
-    $('#pet-status-card').show();
-    $('#activities-card').show();
-    $('#missions-card').show();
-    $('#inventory-card').show();
-    $('#coins-card').show();
-    $('#explore-card').show();
-    $('#switch-pet-card').show();
-    $('#buy-pet-card').show();
-    $('#missions-history-card').show();
-    $('#messages-container-card').show();
+    $('#pet-status-card, #activities-card, #missions-card, #inventory-card, #coins-card, #explore-card, #switch-pet-card, #buy-pet-card, #missions-history-card, #options-card').show();
 }
 
 function performActivity(activity) {
@@ -23,7 +14,17 @@ function performActivity(activity) {
 }
 
 function startMission(mission) {
-    player.ghostPetz[player.currentPetIndex].startMission(mission);
+    $('#minigameModal').modal('show');
+}
+
+function completeMinigame() {
+    const missionEffects = player.ghostPetz[player.currentPetIndex].getMissionEffects('busquedaTesoros');
+    player.ghostPetz[player.currentPetIndex].applyEffects(missionEffects);
+    player.coins += missionEffects.coins || 0;
+    player.updateCoins();
+    player.addMissionToHistory({ description: `Misión: busquedaTesoros`, rewards: missionEffects.rewards });
+    player.showMsg(`Tu GhostPet ha completado la misión: busquedaTesoros`, 'info');
+    player.saveProgress();
 }
 
 function exploreArea(area) {
@@ -33,4 +34,8 @@ function exploreArea(area) {
 
 function buyPet(type) {
     player.buyPet(type);
+}
+
+function resetGame() {
+    player.resetGame();
 }

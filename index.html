@@ -22,10 +22,7 @@
                 </div>
             </div>
         </div>
-        <div class="text-center mb-4">
-            <button class="btn btn-info mx-2" onclick="player.saveProgress()"><i class="fas fa-save"></i> Guardar Progreso</button>
-            <button class="btn btn-info mx-2" onclick="player.loadProgress()"><i class="fas fa-upload"></i> Cargar Progreso</button>
-        </div>
+        
         <div id="accordion">
             <div class="card">
                 <div class="card-header text-center" id="headingSelection">
@@ -55,7 +52,7 @@
                 </div>
                 <div id="collapseStatus" class="collapse" aria-labelledby="headingStatus" data-parent="#accordion">
                     <div class="card-body text-center">
-                        <img id="pet-image" src="" class="img-fluid mb-3" alt="GhostPet Image" width="300px" height="">
+                        <img id="pet-image" src="" class="img-fluid mb-3" alt="GhostPet Image">
                         <div class="row">
                             <div class="col-6">
                                 <p><i class="fas fa-paw"></i> <span id="pet-type"></span></p>
@@ -71,13 +68,13 @@
                             </div>
                         </div>
                         <div class="progress mb-3">
-                            <div id="progress-health" class="progress-bar" role="progressbar" style="width: 100%;"></div>
+                            <div id="progress-health" class="progress-bar" role="progressbar" style="width: 100%;">Salud 100%</div>
                         </div>
                         <div class="progress mb-3">
-                            <div id="progress-energy" class="progress-bar" role="progressbar" style="width: 100%;"></div>
+                            <div id="progress-energy" class="progress-bar" role="progressbar" style="width: 100%;">Energía 100%</div>
                         </div>
                         <div class="progress mb-3">
-                            <div id="progress-happiness" class="progress-bar" role="progressbar" style="width: 100%;"></div>
+                            <div id="progress-happiness" class="progress-bar" role="progressbar" style="width: 100%;">Felicidad 100%</div>
                         </div>
                     </div>
                 </div>
@@ -215,20 +212,24 @@
                 <div class="card-header text-center" id="headingOptions">
                     <h5 class="mb-0">
                         <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOptions" aria-expanded="false" aria-controls="collapseOptions">
-                            <i class="fas fa-cogs"></i> Opciones GhostPet
+                            <i class="fas fa-cog"></i> Opciones
                         </button>
                     </h5>
                 </div>
                 <div id="collapseOptions" class="collapse" aria-labelledby="headingOptions" data-parent="#accordion">
                     <div class="card-body text-center">
-                        <button class="btn btn-danger mx-2 mb-2" onclick="resetGame()"><i class="fas fa-redo-alt"></i> Reiniciar Juego</button>
+                        <button class="btn btn-danger mx-2 mb-2" onclick="resetGame()"><i class="fas fa-redo"></i> Reiniciar Juego</button>
+                        
+                        <button class="btn btn-info mx-2 mb-2" onclick="player.saveProgress()"><i class="fas fa-save"></i> Guardar Progreso</button>
+                        <button class="btn btn-info mx-2 mb-2" onclick="player.loadProgress()"><i class="fas fa-upload"></i> Cargar Progreso</button>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal para Minijuegos -->
+    <!-- Modal de minijuego -->
     <div class="modal fade" id="minigameModal" tabindex="-1" role="dialog" aria-labelledby="minigameModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -239,10 +240,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Aquí se mostrará el minijuego.
+                    <p>Aquí va el contenido del minijuego.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="completeMinigame()">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="closeMissionModal">Completar Misión</button>
                 </div>
             </div>
         </div>
@@ -252,7 +253,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="src/Player.js"></script>
     <script src="src/GhostPet.js"></script>
-    <script src="src/utils.js"></script>
     <script src="src/main.js"></script>
 </body>
 </html>

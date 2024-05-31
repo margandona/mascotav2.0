@@ -12,8 +12,7 @@ body {
 .btn-secondary,
 .btn-warning,
 .btn-info,
-.btn-success,
-.btn-danger {
+.btn-success {
     background-color: #ff62df; /* Botones generales */
     border: none;
     transition: all 0.3s ease; /* Transición suave */
@@ -23,8 +22,7 @@ body {
 .btn-secondary:hover,
 .btn-warning:hover,
 .btn-info:hover,
-.btn-success:hover,
-.btn-danger:hover {
+.btn-success:hover {
     background-color: #ff28db; /* Hover */
     transform: scale(1.05); /* Aumentar ligeramente el tamaño al pasar el ratón */
 }
@@ -66,11 +64,12 @@ body {
     background-color: #ffc8f7; /* Fondo de los mensajes */
     border-radius: 10px;
     padding: 10px;
-    max-height: 400px;
-    overflow-y: auto;
+    margin-top: 20px;
 }
 
 #messages {
+    max-height: 150px;
+    overflow-y: auto;
     padding: 10px;
     background-color: #fff2fd; /* Fondo de los mensajes individuales */
     border-radius: 5px;
@@ -94,18 +93,4 @@ body {
     padding: 10px;
     max-height: 200px;
     overflow-y: auto;
-}
-
-.modal-content {
-    background-color: #fff2fd; /* Fondo de la ventana emergente */
-}
-
-.modal-header, .modal-footer {
-    background-color: #ffc8f7; /* Fondo del encabezado y pie de la ventana emergente */
-}
-
-.pet-button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
